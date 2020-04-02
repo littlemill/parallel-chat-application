@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const db = require('./db')
 const chatRouter = require('./routes/chat-router')
+const userRouter = require('./routes/user-router')
 
 const app = express()
 const apiPort = 3000
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.use('/api', chatRouter)
+app.use('/chat', chatRouter)
+app.use('/user', userRouter)
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
