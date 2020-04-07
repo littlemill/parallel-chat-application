@@ -1,0 +1,34 @@
+.chat{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-bar{
+    height: 100Vh
+}
+
+.chat-panel{
+    height: 100vh;
+    width: 100vw;
+}
+
+.olive-bg{
+    background-color: olive;
+}
+
+.chat-username{
+    background-color:  #105368;
+    color: white;
+    height: 6%;
+}
+
+.chat-group-name{
+    background-color: white;
+    height: 6%;
+}
+
+.display-chat-messages{
+    background-color: rgb(255, 236, 185);
+    height: 80%;
+}
