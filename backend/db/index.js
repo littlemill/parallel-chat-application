@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
+const uri = "mongodb+srv://admin:12345@database-pwl4t.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose
-    .connect('mongodb://127.0.0.1:27017/chat', { useNewUrlParser: true })
+    .connect(uri, { useNewUrlParser: true , useUnifiedTopology: true })
+    .then(console.log('Connected'))
     .catch(e => {
         console.error('Connection error', e.message)
     })
-
+    
 const db = mongoose.connection
 
 module.exports = db
