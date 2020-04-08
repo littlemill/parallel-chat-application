@@ -4,10 +4,9 @@ const chatCtrl = require('../controllers/chat-ctrl')
 
 const router = express.Router()
 
-router.post('/chat', chatCtrl.createChat)
-router.put('/chat/:id', chatCtrl.updateCbat)
-router.delete('/chat/:id', chatCtrk.deleteChat)
-router.get('/chat/:id', chatCtrl.getChatById)
-router.get('/chats', chatCtrl.getChats)
+router.post('/create', chatCtrl.createChat)
+router.delete('/del/:id', chatCtrl.deleteChat)
+router.get('/:id', chatCtrl.getChatById)
+router.get('/', chatCtrl.getChats)
 
 module.exports = router
