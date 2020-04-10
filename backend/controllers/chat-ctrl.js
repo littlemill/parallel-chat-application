@@ -1,4 +1,4 @@
-const Chat = require('../models/chat-model')
+const Chat = require('../db/models/chat-model')
 
 createChat = (req, res) => {
     const body = req.body
