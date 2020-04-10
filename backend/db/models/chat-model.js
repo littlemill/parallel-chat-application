@@ -3,12 +3,11 @@ const Schema = mongoose.Schema
 
 const Chat = new Schema(
     {
-        username: { type: String, required: true },
-        time: { type: [String], required: true },
-        message: { type: String, required: true },
-        groupID: { type: Number, required: false},
-    },
-    { timestamps: true },
+        user: String,
+        group: String,
+        time: Date,
+        message: String,
+    }
 )
- 
+
 module.exports = mongoose.model('chats', Chat)
