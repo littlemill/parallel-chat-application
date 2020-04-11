@@ -2,6 +2,7 @@ import React from 'react';
 import './../style/chat.css'
 
 import NavBar from './navBar'
+import Drawer from './drawer'
 
 class Chat extends React.Component {
     render() {
@@ -9,7 +10,8 @@ class Chat extends React.Component {
 
         return (
             <div className='chat' >
-                <NavBar></NavBar>
+                {/* <NavBar></NavBar> */}
+                <Drawer></Drawer>
                 <div className='chat-panel'>
                     <div className='chat-username'>
                         Chat username
