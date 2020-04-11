@@ -24,9 +24,8 @@ class Join extends React.Component {
                         <h1>Welcome,</h1>
                         <TextField placeholder='Please enter your name'></TextField>
                     </div>
-                    <div>
-                        {/* <Button color="primary">Log in</Button> */}
-                        <Link to="/chat"><Button color="primary">Log in</Button></Link>
+                    <div className='login-button'>
+                        <Link className='' to="/chat"><Button color="inherite">Log in</Button></Link>
                     </div>
                 </div>
             </div>
