@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
-import './../style/chat.css'
+import './../style/group.css'
 import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
 

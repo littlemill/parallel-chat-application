@@ -1,0 +1,65 @@
+img{
+    border-radius: 50%;
+    height: 50px;
+}
+
+.group{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-bar{
+    height: 100Vh
+}
+
+.group-panel{
+    height: 100vh;
+    width: 100vw;
+}
+
+.olive-bg{
+    background-color: olive;
+}
+
+.group-username{
+    background-color:  #105368;
+    color: white;
+    height: 8%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+}
+
+.underline{
+    text-decoration:underline
+}
+
+.chat-username p{
+    margin: 5px;
+}
+
+.group-header{
+    margin: 50px;
+    background-color: white;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.group-content{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.group-content button{
+    font-weight: bold;
+    background-color: grey;
+
+}
