@@ -3,7 +3,7 @@ img{
     height: 50px;
 }
 
-.chat{
+.group{
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -13,7 +13,7 @@ img{
     height: 100Vh
 }
 
-.chat-panel{
+.group-panel{
     height: 100vh;
     width: 100vw;
 }
@@ -22,7 +22,7 @@ img{
     background-color: olive;
 }
 
-.chat-username{
+.group-username{
     background-color:  #105368;
     color: white;
     height: 8%;
@@ -32,15 +32,16 @@ img{
     padding-right: 15px;
 }
 
-.logout-button{
-    color: white;
+.underline{
+    text-decoration:underline
 }
 
 .chat-username p{
     margin: 5px;
 }
 
-.chat-group-name{
+.group-header{
+    margin: 50px;
     background-color: white;
     height: 8%;
     display: flex;
@@ -49,17 +50,16 @@ img{
     font-weight: bold;
 }
 
-.chat-content{
-    background-color: rgb(255, 236, 185);
-    height: 76%;
-}
-
-.message-box{
-    display: flex;
-    justify-content: center;
-    padding: 4px;
-}
-
-.message-box button{
+.group-content{
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.group-content button{
+    font-weight: bold;
+    background-color: grey;
+
 }

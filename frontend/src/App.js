@@ -5,6 +5,7 @@ import TestPage1 from './pages/TestPage1';
 import TestPage2 from './pages/TestPage2';
 import Join from './components/join';
 import Chat from './components/chat';
+import Group from './components/group';
 
 import history from './logic/history';
 import './style/index.css'
@@ -15,6 +16,8 @@ function App() {
             <Switch>
                 <Route path="/" exact component={Join} />
                 <Route path="/chat" component={Chat} />
+                <Route path="/group" component={Group} />
+
             </Switch>
         </Router>
     )
