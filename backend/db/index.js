@@ -6,6 +6,8 @@ const Group = require('./models/group-model')
 const GroupMember = require('./models/groupmember-model')
 const Chat = require('./models/chat-model')
 
+const util  = require('../util')
+
 const apiport = 3000
 
 const io = require('socket.io').listen(apiport)
@@ -19,8 +21,6 @@ mongoose
     })
 
 const db = mongoose.connection
-
-
 
 //mock-data 
 
@@ -77,26 +77,14 @@ function userLogin(username,socket) {
         })
         .catch(error => console.log(error))
     }
-    // EmitAllChats(socket);
+    retrieveMessages(socket);
     GroupInfo(username,socket)
   })
 }
 
 function GroupInfo(username,socket){
-    var allGroup = [];
+    var allGroup = getGroupList();
     var allJoinedGroup = [];
-    Group.find({}, (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        if (!data.length) {
-            console.log("Group not found")
-        }
-        var group
-        for(group in data){
-            allGroup.push(group.name);
-        }
-    }).catch(error => console.log(error))
 
     GroupMember.find({member: username}, (err, data) => {
         if (err) {
@@ -114,5 +102,30 @@ function GroupInfo(username,socket){
     socket.emit("groupinfo",{group:allGroup, joinedGroup:allJoinedGroup});
 }
 
+
+function getGroupList(){
+    var groupList = []
+    Group.find({},(err,group) => {
+        var groupdata
+        for (groupdata in group){
+            groupList.push(groupdata.name)
+        }
+    })
+    return groupList
+}
+
+function retrieveMessages(socket){
+    var groupList = getGroupList()
+    var chatByGroup = {}
+    var groupName
+    for (groupName in groupList){
+        Chat.find({group: groupName}).sort('timestamp').exec(function(err,message){
+            chatByGroup[groupName] = message.map((msgitem,idx)=>{
+                return {user: msgitem.name, time: util.timeformatter(msgitem.time),message: msgitem.message}
+            })
+        })
+    }
+    socket.emit('all messages',chatByGroup)
+}
 
 module.exports = db
