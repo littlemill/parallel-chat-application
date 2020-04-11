@@ -62,5 +62,57 @@ const db = mongoose.connection
 // var query = Group.find()
 // query.then(function(group))
 
+function userLogin(username,socket) { 
+  User.find({name:username},function(err,users){
+    if (err) {
+        console.log(err);
+    }
+    if(!users.length) { 
+      console.log("Not found in DB; Create new user")
+      const user = new User({name:username});
+      user
+        .save()
+        .then(() => {
+            console.log("Created User")
+        })
+        .catch(error => console.log(error))
+    }
+    // EmitAllChats(socket);
+    GroupInfo(username,socket)
+  })
+}
+
+function GroupInfo(username,socket){
+    var allGroup = [];
+    var allJoinedGroup = [];
+    Group.find({}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        if (!data.length) {
+            console.log("Group not found")
+        }
+        var group
+        for(group in data){
+            allGroup.push(group.name);
+        }
+    }).catch(error => console.log(error))
+
+    GroupMember.find({member: username}, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        if (!data) {
+            console.log("Joined Group not found")
+        }
+        var joinedgroup
+        for(joinedgroup in data){
+            allGroup.push(joinedgroup.name);
+        }
+    }).catch(error => console.log(error))
+
+    socket.emit("groupinfo",{group:allGroup, joinedGroup:allJoinedGroup});
+}
+
 
 module.exports = db
