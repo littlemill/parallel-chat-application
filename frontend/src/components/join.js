@@ -7,7 +7,7 @@ class Join extends React.Component {
 
     state = {
         name: "",
-        room: ""
+        room: "",
     }
 
     onClickLogin() {

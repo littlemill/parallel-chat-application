@@ -52,6 +52,9 @@ img{
 .chat-content{
     background-color: rgb(255, 236, 185);
     height: 76%;
+    display: flex;
+    flex-direction: row;
+
 }
 
 .message-box{

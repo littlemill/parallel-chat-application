@@ -4,12 +4,21 @@ import { Button, TextField } from '@material-ui/core';
 import './../style/group.css'
 import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
+import ChatMessages from './chat-messages'
 
 class Chat extends React.Component {
     state = {
         username: 'Yinza55+',
         group: 'Ekkie',
         profile: eggie1,
+        // chatMessages: ['Hello', 'How are you?', 'I am fine', 'Fighting you can do it!']
+        chatMessages: [
+            { user: 'me', message: 'Hello' },
+            { user: 'other', message: 'How are you?' },
+            { user: 'me', message: 'I am fine' },
+            { user: 'other', message: 'Fighting you can do it!' },
+            { user: 'me', message: 'THANKS' }
+        ]
     }
     render() {
         return (
@@ -32,7 +41,7 @@ class Chat extends React.Component {
                         {this.state.group.toUpperCase()}
                     </div>
                     <div className='chat-content'>
-                        chat messages
+                        <ChatMessages messages={this.state.chatMessages}></ChatMessages>
                     </div>
                     <div className='message-box'>
                         <TextField
