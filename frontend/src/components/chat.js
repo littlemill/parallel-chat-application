@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import './../style/chat.css'
 import eggie1 from './../asset/eggie1.png'
-
 import Drawer from './drawer'
 
 class Chat extends React.Component {
@@ -20,7 +20,7 @@ class Chat extends React.Component {
                         <img src={this.state.profile}></img>
                         <p>{this.state.username}</p>
                         <span> | </span>
-                        <Button className='underline' color="inherit">Log out</Button>
+                        <Link to="/"><Button className='underline' color="inherit">Log out</Button></Link>
                     </div>
                     <div className='chat-group-name'>
                         {this.state.group}
