@@ -72,8 +72,7 @@ function getGroupList(){
     return groupList
 }
 
-function retrieveMessages(socket){
-    var groupList = getGroupList()
+function getAllMessages(groupList){
     var chatByGroup = {}
     var groupName
     for (groupName in groupList){
@@ -83,10 +82,18 @@ function retrieveMessages(socket){
             })
         })
     }
+    return chatByGroup
+}
+
+function retrieveMessages(socket){
+    var groupList = getGroupList()
+    var chatByGroup = getAllMessages(groupList)
     socket.emit('all messages',chatByGroup)
 }
 
-// function broadcastMessages(socket){
-//     var 
-// }
+function broadcastMessages(socket){
+    var groupList = getGroupList()
+    var chatByGroup = getAllMessages(groupList)
+    io.emit('all messages',chatByGroup)
+}
 module.exports = db
