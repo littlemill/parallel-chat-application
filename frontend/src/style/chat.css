@@ -32,8 +32,8 @@ img{
     padding-right: 15px;
 }
 
-.underline{
-    text-decoration:underline
+.logout-button{
+    color: white;
 }
 
 .chat-username p{
