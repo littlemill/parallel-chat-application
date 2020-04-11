@@ -20,7 +20,13 @@ class Chat extends React.Component {
                         <img src={this.state.profile}></img>
                         <p>{this.state.username}</p>
                         <span> | </span>
-                        <Link to="/"><Button className='underline' color="inherit">Log out</Button></Link>
+                        <Link className='logout-button' to="/">
+                            <Button className='logout-button'
+                                color='inherit'
+                            >
+                                Log out
+                            </Button>
+                        </Link>
                     </div>
                     <div className='chat-group-name'>
                         {this.state.group}
