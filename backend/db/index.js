@@ -137,4 +137,48 @@ function broadcastMessages(socket){
     var chatByGroup = getAllMessages(groupList)
     io.emit('all messages',chatByGroup)
 }
+
+io.on('connection', function (socket) {
+    console.log('connected...');
+  
+    socket.on('login', function (username) {
+      console.log(username+" logged in");  
+      userEnter(username,socket);
+    });
+    
+    socket.on('send', function(data){ 
+      var chat = new Chat(data)
+      chat.save(function(err){
+        if(err) {
+            return err;
+        }
+        console.log("["+data.group+"] "+data.time+" "+data.user+":"+data.message);
+        broadcastMessages(socket);
+      });
+   
+    })
+    socket.on('join', function(data){ // data = {group,member}
+        var joinedGroup = new GroupMember(data)
+        joinedGroup.save(function(err){
+            if (err) {
+                return err;
+            }
+            console.log(data.member+" joined "+data.group)  
+            GroupInfo(data.member,socket);
+        });
+        
+      })
+      
+    socket.on('leave', function(data){
+        GroupMember.remove(data,function(err){ //Remove All Documents that Match a Condition
+            if (err) {
+                return err;
+            }
+            console.log(data.member+" left "+data.group)
+            GroupInfo(data.member,socket);
+        });
+        
+      })
+});
+
 module.exports = db
