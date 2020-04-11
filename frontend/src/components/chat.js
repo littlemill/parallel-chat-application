@@ -1,10 +1,8 @@
 import React from 'react';
-import NavBar from './navBar'
 import { Button, TextField } from '@material-ui/core';
 import './../style/chat.css'
 import eggie1 from './../asset/eggie1.png'
 
-import NavBar from './navBar'
 import Drawer from './drawer'
 
 class Chat extends React.Component {
@@ -16,7 +14,6 @@ class Chat extends React.Component {
     render() {
         return (
             <div className='chat' >
-                {/* <NavBar></NavBar> */}
                 <Drawer></Drawer>
                 <div className='chat-panel'>
                     <div className='chat-username'>
