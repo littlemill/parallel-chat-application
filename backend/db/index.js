@@ -138,7 +138,7 @@ function broadcastMessages(socket){
     io.emit('all messages',chatByGroup)
 }
 
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
     console.log('connected...');
   
     socket.on('login', function (username) {
@@ -146,7 +146,7 @@ io.on('connection', function (socket) {
       userEnter(username,socket);
     });
     
-    socket.on('send', function(data){ 
+    socket.on('send', (data) => { 
       var chat = new Chat(data)
       chat.save(function(err){
         if(err) {
@@ -157,7 +157,7 @@ io.on('connection', function (socket) {
       });
    
     })
-    socket.on('join', function(data){ // data = {group,member}
+    socket.on('join', (data) => { // data = {group,member}
         var joinedGroup = new GroupMember(data)
         joinedGroup.save(function(err){
             if (err) {
@@ -169,8 +169,8 @@ io.on('connection', function (socket) {
         
       })
       
-    socket.on('leave', function(data){
-        GroupMember.remove(data,function(err){ //Remove All Documents that Match a Condition
+    socket.on('leave', (data) => { //data = {member,group}
+        GroupMember.remove(data,(err) => { //Remove All Documents that Match a Condition
             if (err) {
                 return err;
             }
@@ -179,6 +179,26 @@ io.on('connection', function (socket) {
         });
         
       })
+    socket.on('create', (data) => { //data = {member,group}
+        new Group({name: data.group}).save((err) => {
+            if(err){
+                console.log(err)
+                return err
+            }
+            console.log('new group: ',data.group,' is created.')
+            io.emit('new group is created',)
+        })
+        new GroupMember({group: data.group, member: data.member}).save()
+    })
+
+    socket.on('getGroupUpdates', (data) => { //data = {name} --> user
+        GroupInfo(data,socket)
+    })
+
+    socket.on('log out', (data) => { //data = {name} --> user
+        io.emit('user: ',data.name,'is disconnected')
+        console.log('user: ',data.name,'is disconnected')
+    })
 });
 
 module.exports = db
