@@ -1,15 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add';
+import GroupIcon from '@material-ui/icons/Group';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -24,20 +28,13 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
   // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
+  toolbar:{
+    height: 55,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   drawerPaper: {
     width: drawerWidth,
   },
@@ -57,50 +54,77 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const [open, setOpen] = React.useState(true);
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  
   const drawer = (
     <div>
-      <div className={classes.toolbar}>
-          LOGO
+      <div className={classes.toolbar} style = {{ fontSize: "24px"}}>
+          <b>EGGIE</b>
       </div>
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button onClick={handleClick}>
+            <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
+            <ListItemText primary= "Avaliable groups" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List style = {{paddingLeft: theme.spacing(4)}}> 
+            {['All mail', 'Trash', 'Spam'].map((text) => (
+            <ListItem button key={text} className={classes.nested}>
+                <ListItemText primary={text}/>
+                <ListItemSecondaryAction>
+                    <AddIcon edge="end" />
+                </ListItemSecondaryAction>
+            </ListItem>
+            ))}
+        </List>
+      </Collapse>
       </List>
+
+      <Divider />
+
+      <List>
+        <ListItem button onClick={handleClick}>
+            <ListItemIcon> <GroupIcon /> </ListItemIcon>
+            <ListItemText primary= "My groups" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List style = {{paddingLeft: theme.spacing(4)}}>
+            {['All mail', 'Trash', 'Spam'].map((text) => (
+            <ListItem button key={text} className={classes.nested}>
+                <ListItemText primary={text} />
+            </ListItem>
+            ))}
+        </List>
+      </Collapse>
+      </List>
+
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+          <ListItem button>
+            <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
+            <ListItemText primary= "Create new group" />
           </ListItem>
-        ))}
       </List>
     </div>
   );
 
   return (
-    <div className={classes.root}>
-      {/* <CssBaseline /> */}
 
+    <div className={classes.root}>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
+            anchor="left"
             classes={{
               paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
             }}
           >
             {drawer}

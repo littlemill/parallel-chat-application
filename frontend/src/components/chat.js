@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import './../style/chat.css'
 import eggie1 from './../asset/eggie1.png'
-
 import Drawer from './drawer'
 
 class Chat extends React.Component {
@@ -22,8 +21,8 @@ class Chat extends React.Component {
                         <span> | </span>
                         <Button className='underline' color="inherit">Log out</Button>
                     </div>
-                    <div className='chat-group-name'>
-                        {this.state.group}
+                    <div className='chat-group-name' >
+                        {this.state.group.toUpperCase()}
                     </div>
                     <div className='chat-content'>
                         chat messages
