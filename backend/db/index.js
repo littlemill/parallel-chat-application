@@ -1,10 +1,15 @@
 const mongoose = require('mongoose')
 const uri = "mongodb+srv://admin:12345@database-pwl4t.mongodb.net/test?retryWrites=true&w=majority";
 
-const User = require('./models/user-model');
-const Group = require('./models/group-model');
-const GroupMember = require('./models/groupmember-model');
-const Chat = require('./models/chat-model');
+const User = require('./models/user-model')
+const Group = require('./models/group-model')
+const GroupMember = require('./models/groupmember-model')
+const Chat = require('./models/chat-model')
+
+const apiport = 3000
+
+const io = require('socket.io').listen(apiport)
+console.log('listening on API port:',apiport)
 
 mongoose
     .connect(uri, { useNewUrlParser: true , useUnifiedTopology: true })
@@ -14,6 +19,8 @@ mongoose
     })
 
 const db = mongoose.connection
+
+
 
 //mock-data 
 
