@@ -186,7 +186,7 @@ io.on('connection', (socket) => {
                 return err
             }
             console.log('new group: ',data.group,' is created.')
-            io.emit('new group is created',)
+            io.emit('groupcreation completed',)
         })
         new GroupMember({group: data.group, member: data.member}).save()
     })
@@ -196,8 +196,8 @@ io.on('connection', (socket) => {
     })
 
     socket.on('log out', (data) => { //data = {name} --> user
-        io.emit('user: ',data.name,'is disconnected')
-        console.log('user: ',data.name,'is disconnected')
+        io.emit('user disconnected')
+        console.log('user: ',data.name,' disconnected')
     })
 });
 
