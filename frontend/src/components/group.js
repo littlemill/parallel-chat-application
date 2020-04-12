@@ -30,7 +30,9 @@ class Group extends React.Component {
                         <TextField
                             placeholder='Group Name'>
                         </TextField>
-                        <Button>Create</Button>
+                        <Button variant="outlined" disabled style = {{borderRadius: 40, width: '300 px'}}> 
+                        Create
+                        </Button>
                     </div>
                 </div>
             </div>
