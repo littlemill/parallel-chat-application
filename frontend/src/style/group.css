@@ -25,7 +25,7 @@ img{
 .group-username{
     background-color:  #105368;
     color: white;
-    height: 8%;
+    height: 55px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

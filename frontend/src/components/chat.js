@@ -38,8 +38,8 @@ class Chat extends React.Component {
                             </Button>
                         </Link>
                     </div>
-                    <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
-                        <div className='chat-group-name'  style = {{display: 'flex', justifyContent: 'center'}}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
+                        <div className='chat-group-name'>
                             {this.state.group.toUpperCase()}
                         </div>
                         <DeleteIcon />
