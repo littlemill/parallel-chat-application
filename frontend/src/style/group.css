@@ -40,6 +40,10 @@ img{
     margin: 5px;
 }
 
+.logout-button{
+    color: white;
+}
+
 .group-header{
     margin: 50px;
     background-color: white;
