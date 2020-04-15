@@ -5,6 +5,7 @@ import './../style/group.css'
 import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
 import ChatMessages from './chat-messages'
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Chat extends React.Component {
     state = {
@@ -37,8 +38,11 @@ class Chat extends React.Component {
                             </Button>
                         </Link>
                     </div>
-                    <div className='chat-group-name' >
-                        {this.state.group.toUpperCase()}
+                    <div style = {{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
+                        <div className='chat-group-name'  style = {{display: 'flex', justifyContent: 'center'}}>
+                            {this.state.group.toUpperCase()}
+                        </div>
+                        <DeleteIcon />
                     </div>
                     <div className='chat-content'>
                         <ChatMessages messages={this.state.chatMessages}></ChatMessages>

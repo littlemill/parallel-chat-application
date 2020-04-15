@@ -14,7 +14,6 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const drawerWidth = 240;
