@@ -7,20 +7,57 @@ import Drawer from './drawer'
 import ChatMessages from './chat-messages'
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import openSocket from 'socket.io-client';
+// import socketIO from 'socket.io'
+// import express from 'express'
+
 class Chat extends React.Component {
-    state = {
-        username: 'Yinza55+',
-        group: 'Ekkie',
-        profile: eggie1,
-        // chatMessages: ['Hello', 'How are you?', 'I am fine', 'Fighting you can do it!']
-        chatMessages: [
-            { user: 'me', message: 'Hello' },
-            { user: 'other', message: 'How are you?' },
-            { user: 'me', message: 'I am fine' },
-            { user: 'other', message: 'Fighting you can do it!' },
-            { user: 'me', message: 'THANKS' }
-        ]
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            // typeText: "",
+            // currentPage: "Login",
+            // username: "",
+            // currentGroup: "Not in group.",
+            // isJoinGroupList: [], // [true, false, true],
+            // groupList: [], //["Group1", "Group2", "Group3"],
+            // allChats: { // If want dummy ,GO copy from past it's too long
+            response: false,
+        }
+    };
+
+    componentDidMount() {
+        this.socket = openSocket('http://localhost:3000');
+        console.log('A socket created [App.js]')
+        this.socket.on('getGroupUpdates', function (data) {
+            console.log('connected')
+            console.log(data)
+            this.setState({ response: data })
+            console.log(this.state)
+        })
     }
+
+
+    // this.SocketEmit = this.SocketEmit.bind(this);
+    //end socket
+
+    // SocketEmit(event, value) {
+    //     this.socket.emit(event, value);
+    // }
+    // state = {
+    //     username: 'Yinza55+',
+    //     group: 'Ekkie',
+    //     profile: eggie1,
+    //     // chatMessages: ['Hello', 'How are you?', 'I am fine', 'Fighting you can do it!']
+    //     chatMessages: [
+    //         { user: 'me', message: 'Hello' },
+    //         { user: 'other', message: 'How are you?' },
+    //         { user: 'me', message: 'I am fine' },
+    //         { user: 'other', message: 'Fighting you can do it!' },
+    //         { user: 'me', message: 'THANKS' }
+    //     ]
+    // }
     render() {
         return (
             <div className='chat' >
@@ -40,12 +77,13 @@ class Chat extends React.Component {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name'>
-                            {this.state.group.toUpperCase()}
+                            {/* {this.state.group.toUpperCase()} */}
+                            Hello
                         </div>
                         <DeleteIcon />
                     </div>
                     <div className='chat-content'>
-                        <ChatMessages messages={this.state.chatMessages}></ChatMessages>
+                        {/* <ChatMessages messages={this.state.chatMessages}></ChatMessages> */}
                     </div>
                     <div className='message-box'>
                         <TextField
@@ -57,9 +95,8 @@ class Chat extends React.Component {
                         <Button>Send</Button>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }
-
 export default Chat;

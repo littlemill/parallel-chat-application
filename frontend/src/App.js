@@ -6,6 +6,7 @@ import TestPage2 from './pages/TestPage2';
 import Join from './components/join';
 import Chat from './components/chat';
 import Group from './components/group';
+import Loggin from './components/login';
 
 import history from './logic/history';
 import './style/index.css'
