@@ -39,7 +39,7 @@ const TimeGrayBox = () => {
           height: '18px'
         }}
         >
-            <div style = {{fontSize: "11px"}}> {moment(new Date()).format("MMM D YYYY")} </div>
+            <div style = {{fontSize: "11px"}}> {moment(new Date()).format("D MMM YYYY")} </div>
         </Paper>
     );
 };
