@@ -6,6 +6,7 @@ import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
 import ChatMessages from './chat-messages'
 import DeleteIcon from '@material-ui/icons/Delete';
+import {TimeGrayBox, UnreadGrayBox} from './grayBox';
 
 class Chat extends React.Component {
     state = {
@@ -44,7 +45,9 @@ class Chat extends React.Component {
                         </div>
                         <DeleteIcon onClick={() => this.props.history.push("/emptyChat")}></DeleteIcon>
                     </div>
-                    <div className='chat-content'>
+                    <div className='chat-content' style ={{ display: 'flex', flexDirection: 'column'}}>
+                        <TimeGrayBox/>
+                        <UnreadGrayBox/>
                         <ChatMessages messages={this.state.chatMessages}></ChatMessages>
                     </div>
                     <div className='message-box'>
