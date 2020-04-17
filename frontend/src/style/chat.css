@@ -52,9 +52,11 @@ img{
 
 .chat-content{
     background-color: rgb(255, 236, 185);
-    height: 77%;
+    height: 72.5vh;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    width: 100%;
 }
 
 .message-box{

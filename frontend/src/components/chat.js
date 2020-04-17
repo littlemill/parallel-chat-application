@@ -6,7 +6,7 @@ import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
 import ChatMessages from './chat-messages'
 import DeleteIcon from '@material-ui/icons/Delete';
-import {TimeGrayBox, UnreadGrayBox} from './grayBox';
+import { TimeGrayBox, UnreadGrayBox } from './grayBox';
 
 class Chat extends React.Component {
     state = {
@@ -40,14 +40,14 @@ class Chat extends React.Component {
                         </Link>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
-                        <div className='chat-group-name' style = {{ fontSize: "18px"}}>
+                        <div className='chat-group-name' style={{ fontSize: "18px" }}>
                             {this.state.group.toUpperCase()}
                         </div>
                         <DeleteIcon onClick={() => this.props.history.push("/emptyChat")}></DeleteIcon>
                     </div>
-                    <div className='chat-content' style ={{ display: 'flex', flexDirection: 'column'}}>
-                        <TimeGrayBox/>
-                        <UnreadGrayBox/>
+                    <div className='chat-content' style={{ display: 'flex', flexDirection: 'column' }}>
+                        <TimeGrayBox />
+                        <UnreadGrayBox />
                         <ChatMessages messages={this.state.chatMessages}></ChatMessages>
                     </div>
                     <div className='message-box'>
