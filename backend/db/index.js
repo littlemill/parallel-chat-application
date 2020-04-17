@@ -143,7 +143,7 @@ io.on('connection', (socket) => {
   
     socket.on('login', function (username) {
       console.log(username+" logged in");  
-      userEnter(username,socket);
+      userLogin(username,socket);
     });
     
     socket.on('send', (data) => { 
