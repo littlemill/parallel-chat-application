@@ -7,19 +7,11 @@ import Drawer from './drawer'
 import ChatMessages from './chat-messages'
 import DeleteIcon from '@material-ui/icons/Delete';
 
-class Chat extends React.Component {
+class EmptyChat extends React.Component {
     state = {
         username: 'Yinza55+',
         group: 'Ekkie',
         profile: eggie1,
-        // chatMessages: ['Hello', 'How are you?', 'I am fine', 'Fighting you can do it!']
-        chatMessages: [
-            { user: 'me', message: 'Hello' },
-            { user: 'other', message: 'How are you?' },
-            { user: 'me', message: 'I am fine' },
-            { user: 'other', message: 'Fighting you can do it!' },
-            { user: 'me', message: 'THANKS' }
-        ]
     }
     render() {
         return (
@@ -40,21 +32,20 @@ class Chat extends React.Component {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name' style = {{ fontSize: "18px"}}>
-                            {this.state.group.toUpperCase()}
+                            EMPTY CHAT                        
                         </div>
-                        <DeleteIcon onClick={() => this.props.history.push("/emptyChat")}></DeleteIcon>
+                        <DeleteIcon/>
                     </div>
-                    <div className='chat-content'>
-                        <ChatMessages messages={this.state.chatMessages}></ChatMessages>
-                    </div>
+                    <div className='chat-content'></div>
                     <div className='message-box'>
                         <TextField
+                            disabled
                             variant="outlined"
                             size="small"
                             placeholder='Type your message'
                             fullWidth='true'>
                         </TextField>
-                        <Button>Send</Button>
+                        <Button disabled>Send</Button>
                     </div>
                 </div>
             </div>
@@ -62,4 +53,4 @@ class Chat extends React.Component {
     }
 }
 
-export default Chat;
+export default EmptyChat;
