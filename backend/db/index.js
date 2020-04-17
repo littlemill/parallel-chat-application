@@ -139,11 +139,11 @@ function broadcastMessages(socket){
 }
 
 io.on('connection', (socket) => {
-    console.log('connected...');
+    console.log('connected ja...');
   
     socket.on('login', function (username) {
       console.log(username+" logged in");  
-      userEnter(username,socket);
+      userLogin(username,socket);
     });
     
     socket.on('send', (data) => { 
@@ -192,6 +192,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('getGroupUpdates', (data) => { //data = {name} --> user
+        console.log(data)
         GroupInfo(data,socket)
     })
 
@@ -199,6 +200,8 @@ io.on('connection', (socket) => {
         io.emit('user disconnected')
         console.log('user: ',data.name,' disconnected')
     })
+
+    socket.emit('test','yin_kiatsilp')
 });
 
 module.exports = db

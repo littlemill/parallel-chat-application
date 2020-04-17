@@ -11,11 +11,11 @@ import openSocket from 'socket.io-client';
 // import socketIO from 'socket.io'
 // import express from 'express'
 
+const socket = openSocket('http://localhost:3000');
+
 class Chat extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
+        state = {
             // typeText: "",
             // currentPage: "Login",
             // username: "",
@@ -25,17 +25,19 @@ class Chat extends React.Component {
             // allChats: { // If want dummy ,GO copy from past it's too long
             response: false,
         }
-    };
 
     componentDidMount() {
-        this.socket = openSocket('http://localhost:3000');
-        console.log('A socket created [App.js]')
-        this.socket.on('getGroupUpdates', function (data) {
-            console.log('connected')
-            console.log(data)
-            this.setState({ response: data })
-            console.log(this.state)
-        })
+        try{
+            socket.emit('getGroupUpdates','yin_kiatsilp')
+            socket.on('groupinfo',  (data) => {
+                console.log(data)
+                this.setState({ response: data })
+                console.log(this.state)
+            })
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
 
