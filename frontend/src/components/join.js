@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 
 import './../style/join.css';
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://localhost:3000');
+
 class Join extends React.Component {
 
     state = {
@@ -10,8 +14,17 @@ class Join extends React.Component {
         room: "",
     }
 
+    userLogin(value) {
+        this.setState({
+          name: value
+        });
+        socket.emit('login',this.state.name)
+        console.log(this.state.name);
+        console.log(socket)
+      }
+    
     onClickLogin() {
-        // console.log(this.state.name)
+        this.userLogin(this.state.name)
     }
 
     render() {
