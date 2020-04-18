@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   // necessary for content to be below app bar
-  toolbar:{
+  toolbar: {
     height: 55,
     display: 'flex',
     alignItems: 'center',
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermanentDrawerRight() {
+export default function PermanentDrawerRight(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [click, setClick] = React.useState(true);
@@ -62,7 +62,7 @@ export default function PermanentDrawerRight() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      
+
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -71,56 +71,56 @@ export default function PermanentDrawerRight() {
         }}
         anchor="left"
       >
-        <div className={classes.toolbar} style = {{ fontSize: "24px"}}>
+        <div className={classes.toolbar} style={{ fontSize: "24px" }}>
           <b>EGGIE</b>
-      </div>
+        </div>
         <Divider />
 
-      <List>
-        <ListItem button onClick={handleClick}>
-            <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
-            <ListItemText primary= "Avaliable groups" />
-            {click ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={click} timeout="auto" unmountOnExit>
-            <List> 
-            {['All mail', 'Trash', 'Spam'].map((text) => (
-            <ListItem button key={text} className={classes.nested}>
-                <ListItemText primary={text}/>
-                <ListItemSecondaryAction>
-                    <AddIcon edge="end" />
-                </ListItemSecondaryAction>
-            </ListItem>
-            ))}
-            </List>
-        </Collapse>
-      </List>
-      <Divider />
-
-      <List>
-        <ListItem button onClick={handleOpen}>
-            <ListItemIcon> <GroupIcon /> </ListItemIcon>
-            <ListItemText primary= "My groups" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
         <List>
-        {['All mail', 'Trash', 'Spam'].map((text) => (
-        <ListItem button key={text} className={classes.nested}>
-          <ListItemText primary={text} />
-        </ListItem>
-        ))}
+          <ListItem button onClick={handleClick}>
+            <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
+            <ListItemText primary="Avaliable groups" />
+            {click ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={click} timeout="auto" unmountOnExit>
+            <List>
+              {props.available_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+                  <ListItemText primary={text} />
+                  <ListItemSecondaryAction>
+                    <AddIcon edge="end" />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
         </List>
-        </Collapse>
-      </List>
+        <Divider />
 
-<Divider />
-      <List>
+        <List>
+          <ListItem button onClick={handleOpen}>
+            <ListItemIcon> <GroupIcon /> </ListItemIcon>
+            <ListItemText primary="My groups" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List>
+              {props.my_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </List>
+
+        <Divider />
+        <List>
           <ListItem button>
             <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
-            <ListItemText primary= "Create new group" />
+            <ListItemText primary="Create new group" />
           </ListItem>
-      </List>
+        </List>
       </Drawer>
     </div>
   );
