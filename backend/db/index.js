@@ -29,6 +29,8 @@ const db = mongoose.connection
 // var nut = new User({name: 'nnnnnnutt'})
 // var tien = new User({name: 'xntien'})
 // var jane = new User({name: 'janejira_jira'})
+//var a = new User({name:'a'})
+//a.save()
 
 // mill.save()
 // yin.save()
@@ -51,7 +53,7 @@ const db = mongoose.connection
 // new GroupMember({group: 'konsuaysuay',member: 'janejira_jira'}).save()
 
 // new GroupMember({group: 'parallel-dist',member: 'littlemill'}).save()
-// new GroupMember({group: 'parallel-dist',member: 'yin_kiatsilp'}).save()
+ new GroupMember({group: 'parallel-dist',member: 'a'}).save()
 
 // new GroupMember({group: 'ComEngCp44',member: 'nnnnnnutt'}).save()
 // new GroupMember({group: 'ComEngCp44',member: 'xntien'}).save()
@@ -193,6 +195,7 @@ io.on('connection', (socket) => {
 
     socket.on('getGroupUpdates', (data) => { //data = {name} --> user
         GroupInfo(data,socket)
+        retrieveMessages(socket)
     })
 
     socket.on('log out', (data) => { //data = {name} --> user
