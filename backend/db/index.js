@@ -29,6 +29,8 @@ const db = mongoose.connection
 // var nut = new User({name: 'nnnnnnutt'})
 // var tien = new User({name: 'xntien'})
 // var jane = new User({name: 'janejira_jira'})
+//var a = new User({name:'a'})
+//a.save()
 
 // mill.save()
 // yin.save()
@@ -51,7 +53,7 @@ const db = mongoose.connection
 // new GroupMember({group: 'konsuaysuay',member: 'janejira_jira'}).save()
 
 // new GroupMember({group: 'parallel-dist',member: 'littlemill'}).save()
-// new GroupMember({group: 'parallel-dist',member: 'yin_kiatsilp'}).save()
+ new GroupMember({group: 'parallel-dist',member: 'a'}).save()
 
 // new GroupMember({group: 'ComEngCp44',member: 'nnnnnnutt'}).save()
 // new GroupMember({group: 'ComEngCp44',member: 'xntien'}).save()
@@ -82,36 +84,35 @@ function userLogin(username,socket) {
   })
 }
 
-function GroupInfo(username,socket){
-    var allGroup = getGroupList();
-    var allJoinedGroup = [];
-
-    GroupMember.find({member: username}, (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        if (!data) {
-            console.log("Joined Group not found")
-        }
-        var joinedgroup
-        for(joinedgroup in data){
-            allGroup.push(joinedgroup.name);
-        }
-    }).catch(error => console.log(error))
-
+async function GroupInfo(username,socket){
+    var allGroup = await getGroupList();
+    var allJoinedGroup = await getJoinedGroupList(username);
+    console.log(allGroup)
+    console.log(allJoinedGroup)
     socket.emit("groupinfo",{group:allGroup, joinedGroup:allJoinedGroup});
 }
 
-function getGroupList(){
+async function getGroupList(){
     var groupList = []
-    Group.find({},(err,group) => {
-        var groupdata
-        for (groupdata in group){
-            groupList.push(groupdata.name)
-        }
-    })
+    var group = await Group.find({})
+    var groupdata
+    for (groupdata in group){
+        groupList.push(group[groupdata].name)
+    }
     return groupList
 }
+
+async function getJoinedGroupList(username){
+    var joinedgroupList = []
+    var group = await GroupMember.find({member: username})
+    console.log(group)
+    var groupdata
+    for (groupdata in group){
+        joinedgroupList.push(group[groupdata].group)
+    }
+    return joinedgroupList
+}
+
 
 function getAllMessages(groupList){
     var chatByGroup = {}
@@ -158,6 +159,22 @@ io.on('connection', (socket) => {
    
     })
     socket.on('join', (data) => { // data = {group,member}
+        // GroupMember.find({data}), function(err,joingroup) {
+        //     if(joingroup.length){
+        //         console.log("already joined")
+        //     }
+        //     else{
+        //         var joinedGroup = new GroupMember(data)
+        //         joinedGroup.save(function(err){
+        //             if (err) {
+        //                 return err;
+        //             }
+        //             console.log(data.member+" joined "+data.group)  
+        //             GroupInfo(data.member,socket);
+        //         });
+        //         retrieveMessages(socket); 
+        //     }
+        // }
         var joinedGroup = new GroupMember(data)
         joinedGroup.save(function(err){
             if (err) {
@@ -166,7 +183,7 @@ io.on('connection', (socket) => {
             console.log(data.member+" joined "+data.group)  
             GroupInfo(data.member,socket);
         });
-        retrieveMessages(socket); 
+        //retrieveMessages(socket); 
       })
       
     socket.on('leave', (data) => { //data = {member,group}
@@ -193,6 +210,11 @@ io.on('connection', (socket) => {
 
     socket.on('getGroupUpdates', (data) => { //data = {name} --> user
         GroupInfo(data,socket)
+       // retrieveMessages(socket)
+    })
+
+    socket.on('fetchMessages',() =>{
+        retrieveMessages(socket)
     })
 
     socket.on('log out', (data) => { //data = {name} --> user
