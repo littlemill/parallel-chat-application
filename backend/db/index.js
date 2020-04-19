@@ -84,6 +84,7 @@ function userLogin(username,socket) {
 
 function GroupInfo(username,socket){
     var allGroup = getGroupList();
+    //var allGroup = ['konsuaysuay']
     var allJoinedGroup = [];
 
     GroupMember.find({member: username}, (err, data) => {
@@ -95,21 +96,20 @@ function GroupInfo(username,socket){
         }
         var joinedgroup
         for(joinedgroup in data){
-            allGroup.push(joinedgroup.name);
+            allJoinedGroup.push(joinedgroup.name);
         }
     }).catch(error => console.log(error))
 
     socket.emit("groupinfo",{group:allGroup, joinedGroup:allJoinedGroup});
 }
 
-function getGroupList(){
+async function getGroupList(){
     var groupList = []
-    Group.find({},(err,group) => {
-        var groupdata
-        for (groupdata in group){
-            groupList.push(groupdata.name)
-        }
-    })
+    var group = await Group.find({})
+    var groupdata
+    for (groupdata in group){
+        groupList.push(group[groupdata].name)
+    }
     return groupList
 }
 
