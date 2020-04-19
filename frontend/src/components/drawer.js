@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   // necessary for content to be below app bar
-  toolbar:{
+  toolbar: {
     height: 55,
     display: 'flex',
     alignItems: 'center',
@@ -72,40 +72,40 @@ const NavBar = ({ history }) => {
       <List>
         <ListItem button onClick={handleClick}>
             <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
-            <ListItemText primary= "Avaliable groups" />
+            <ListItemText primary="Avaliable groups" />
             {click ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={click} timeout="auto" unmountOnExit>
-            <List> 
-            {['All mail', 'Trash', 'Spam'].map((text) => (
-            <ListItem button key={text} className={classes.nested}>
-                <ListItemText primary={text}/>
-                <ListItemSecondaryAction>
+          </ListItem>
+          <Collapse in={click} timeout="auto" unmountOnExit>
+            <List>
+              {props.available_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+                  <ListItemText primary={text} />
+                  <ListItemSecondaryAction>
                     <AddIcon edge="end" />
-                </ListItemSecondaryAction>
-            </ListItem>
-            ))}
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
             </List>
-        </Collapse>
-      </List>
-      <Divider />
-
-      <List>
-        <ListItem button onClick={handleOpen}>
-            <ListItemIcon> <GroupIcon /> </ListItemIcon>
-            <ListItemText primary= "My groups" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-        <List>
-        {['All mail', 'Trash', 'Spam'].map((text) => (
-        <ListItem button key={text} className={classes.nested}>
-          <ListItemText primary={text} />
-        </ListItem>
-        ))}
+          </Collapse>
         </List>
-        </Collapse>
-      </List>
+        <Divider />
+
+        <List>
+          <ListItem button onClick={handleOpen}>
+            <ListItemIcon> <GroupIcon /> </ListItemIcon>
+            <ListItemText primary="My groups" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List>
+              {props.my_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </List>
       <Divider />
 
       <List>
@@ -116,7 +116,7 @@ const NavBar = ({ history }) => {
           }}
           >
             <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
-            <ListItemText primary= "Create new group" />
+            <ListItemText primary="Create new group" />
           </ListItem>
       </List>
     </div>

@@ -166,7 +166,7 @@ io.on('connection', (socket) => {
             console.log(data.member+" joined "+data.group)  
             GroupInfo(data.member,socket);
         });
-        
+        retrieveMessages(socket); 
       })
       
     socket.on('leave', (data) => { //data = {member,group}
