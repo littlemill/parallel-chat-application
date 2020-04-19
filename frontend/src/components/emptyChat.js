@@ -18,18 +18,6 @@ class EmptyChat extends React.Component {
             <div className='chat' >
                 <Drawer></Drawer>
                 <div className='chat-panel'>
-                    <div className='chat-username'>
-                        <img src={this.state.profile}></img>
-                        <p>{this.state.username}</p>
-                        <span> | </span>
-                        <Link className='logout-button' to="/">
-                            <Button className='logout-button'
-                                color='inherit'
-                            >
-                                Log out
-                            </Button>
-                        </Link>
-                    </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name' style = {{ fontSize: "18px"}}>
                             EMPTY CHAT                        
