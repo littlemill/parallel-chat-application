@@ -82,24 +82,11 @@ function userLogin(username,socket) {
   })
 }
 
-function GroupInfo(username,socket){
-    var allGroup = getGroupList();
-    //var allGroup = ['konsuaysuay']
-    var allJoinedGroup = [];
-
-    GroupMember.find({member: username}, (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        if (!data) {
-            console.log("Joined Group not found")
-        }
-        var joinedgroup
-        for(joinedgroup in data){
-            allJoinedGroup.push(joinedgroup.name);
-        }
-    }).catch(error => console.log(error))
-
+async function GroupInfo(username,socket){
+    var allGroup = await getGroupList();
+    var allJoinedGroup = await getJoinedGroupList(username);
+    console.log(allGroup)
+    console.log(allJoinedGroup)
     socket.emit("groupinfo",{group:allGroup, joinedGroup:allJoinedGroup});
 }
 
@@ -112,6 +99,18 @@ async function getGroupList(){
     }
     return groupList
 }
+
+async function getJoinedGroupList(username){
+    var joinedgroupList = []
+    var group = await GroupMember.find({member: username})
+    console.log(group)
+    var groupdata
+    for (groupdata in group){
+        joinedgroupList.push(group[groupdata].group)
+    }
+    return joinedgroupList
+}
+
 
 function getAllMessages(groupList){
     var chatByGroup = {}
@@ -158,6 +157,22 @@ io.on('connection', (socket) => {
    
     })
     socket.on('join', (data) => { // data = {group,member}
+        // GroupMember.find({data}), function(err,joingroup) {
+        //     if(joingroup.length){
+        //         console.log("already joined")
+        //     }
+        //     else{
+        //         var joinedGroup = new GroupMember(data)
+        //         joinedGroup.save(function(err){
+        //             if (err) {
+        //                 return err;
+        //             }
+        //             console.log(data.member+" joined "+data.group)  
+        //             GroupInfo(data.member,socket);
+        //         });
+        //         retrieveMessages(socket); 
+        //     }
+        // }
         var joinedGroup = new GroupMember(data)
         joinedGroup.save(function(err){
             if (err) {
