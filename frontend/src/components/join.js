@@ -16,13 +16,13 @@ class Join extends React.Component {
 
     userLogin(value) {
         this.setState({
-          name: value
+            name: value
         });
-        socket.emit('login',this.state.name)
+        socket.emit('login', this.state.name)
         console.log(this.state.name);
         console.log(socket)
-      }
-    
+    }
+
     onClickLogin() {
         this.userLogin(this.state.name)
     }
@@ -40,8 +40,12 @@ class Join extends React.Component {
                     </div>
                     <div className='login-button'>
                         <Button component={Link}
-                            to="/chat"
+                            to={{
+                                pathname: "/chat",
+                                state: { user: this.state.name }
+                            }}
                             color="inherite"
+                            // params={{ user: this.state.name }}
                             // disabled={!this.state.name}
                             onClick={e => this.onClickLogin()}>
                             Log in

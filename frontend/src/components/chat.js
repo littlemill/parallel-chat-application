@@ -16,9 +16,9 @@ class Chat extends React.Component {
     state = {
         available_groups: ['group1', 'group2'],
         my_groups: ['group1', 'group2', 'group3'],
-        temp: ['yin_kiatsilp'],
-        user: 'yin_kiatsilp',
-        group: 'konsuaysuay',
+        temp: ['konsuaysuay'],
+        user: false,
+        group: "konsuaysuay",
         currentMessage: '',
         messages: false
     }
@@ -28,12 +28,20 @@ class Chat extends React.Component {
             //1. get user's groups {status: testing available_group and my_groups}
 
             console.log('componentDidMount')
-            socket.emit('getGroupUpdates', 'yin_kiatsilp')
+            socket.emit('getGroupUpdates', this.props.location.state.user)
             socket.on('groupinfo', (data) => {
                 console.log(data)
-                this.setState({ available_groups: data.group, my_groups: data.joinedGroup })
-                console.log(this.state)
+                this.setState({ available_groups: data.group, my_groups: data.joinedGroup, user: this.props.location.state.user })
+                // console.log(this.state)
             })
+            socket.emit('fetchMessages', 'hello')
+            socket.on('all messages', (data) => {
+                console.log(data)
+                // this.console.log('this is group name =')
+                this.setState({ messages: data })
+                // console.log(this.state.messages)
+            })
+            // console.log(this.state.messages)
         }
         catch (e) {
             console.log(e);
@@ -67,9 +75,11 @@ class Chat extends React.Component {
         //3. get all chat messages {status: tesing messages}
 
         console.log('join group')
-        socket.emit('join', { member: 'yin_kiatsilp', group: 'konsuaysuay' })
+        console.log(groupName)
+        socket.emit('join', { member: 'yin_kiatsilp', group: groupName })
         socket.on('all messages', (data) => {
-            this.setState({ messages: data })
+            this.console.log('this is group name =', groupName)
+            this.setState({ messages: data, group: groupName })
             console.log(this.state.messages)
         })
     }
