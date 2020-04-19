@@ -36,10 +36,10 @@ class Chat extends React.Component {
         }
     }
 
-    handleDelete(){
+    handleDelete() {
         this.props.history.push("/emptyChat")
-        socket.emit('leave',{'member':'littlemill','group':'konsuaysuay'})
-        socket.on()
+        socket.emit('leave', {'member': 'littlemill', 'group': 'konsuaysuay'})
+    }
 
     onSendMessage = (e) => {
         console.log('printed on clicking button')
