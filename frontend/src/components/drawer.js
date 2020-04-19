@@ -97,6 +97,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
                     <AddIcon edge="end" />
                   </ListItemSecondaryAction>
                 </ListItem>
+              ))}
             </List>
           </Collapse>
         </List>
@@ -114,6 +115,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
                 <ListItem button key={text} className={classes.nested} onClick={e => { onGetMessages(text) }}>
                   <ListItemText primary={text} />
                 </ListItem>
+              ))}
             </List>
           </Collapse>
         </List>
