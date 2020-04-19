@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ history }) => {
+const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [click, setClick] = React.useState(true);
@@ -61,24 +61,24 @@ const NavBar = ({ history }) => {
     setClick(!click);
   };
   const sideList = (
-      <div className={classes.root}>
+    <div className={classes.root}>
       <CssBaseline />
-        <div className={classes.toolbar} style = {{ fontSize: "24px"}}>
-          <b>EGGIE</b>
-        </div>
+      <div className={classes.toolbar} style={{ fontSize: "24px" }}>
+        <b>EGGIE</b>
+      </div>
       <Divider />
 
       <div className={classes.list} role="presentation">
-      <List>
-        <ListItem button onClick={handleClick}>
+        <List>
+          <ListItem button onClick={handleClick}>
             <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
             <ListItemText primary="Avaliable groups" />
             {click ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={click} timeout="auto" unmountOnExit>
             <List>
-              {props.available_groups.map((text) => (
-                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+              {available_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { onGetMessages(text) }}>
                   <ListItemText primary={text} />
                   <ListItemSecondaryAction>
                     <AddIcon edge="end" />
@@ -98,28 +98,28 @@ const NavBar = ({ history }) => {
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List>
-              {props.my_groups.map((text) => (
-                <ListItem button key={text} className={classes.nested} onClick={e => { props.onGetMessages(text) }}>
+              {my_groups.map((text) => (
+                <ListItem button key={text} className={classes.nested} onClick={e => { onGetMessages(text) }}>
                   <ListItemText primary={text} />
                 </ListItem>
               ))}
             </List>
           </Collapse>
         </List>
-      <Divider />
+        <Divider />
 
-      <List>
-          <ListItem 
-          button
-          onClick={() => {
-            history.push('/group');
-          }}
+        <List>
+          <ListItem
+            button
+            onClick={() => {
+              history.push('/group');
+            }}
           >
             <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
             <ListItemText primary="Create new group" />
           </ListItem>
-      </List>
-    </div>
+        </List>
+      </div>
     </div>
   );
 
@@ -128,11 +128,11 @@ const NavBar = ({ history }) => {
       className={classes.drawer}
       variant="permanent"
       classes={{
-          paper: classes.drawerPaper,
+        paper: classes.drawerPaper,
       }}
       anchor="left"
     >
-        {sideList}
+      {sideList}
     </Drawer>
   );
 };
