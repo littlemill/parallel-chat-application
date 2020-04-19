@@ -183,7 +183,7 @@ io.on('connection', (socket) => {
             console.log(data.member+" joined "+data.group)  
             GroupInfo(data.member,socket);
         });
-        retrieveMessages(socket); 
+        //retrieveMessages(socket); 
       })
       
     socket.on('leave', (data) => { //data = {member,group}
@@ -210,6 +210,10 @@ io.on('connection', (socket) => {
 
     socket.on('getGroupUpdates', (data) => { //data = {name} --> user
         GroupInfo(data,socket)
+       // retrieveMessages(socket)
+    })
+
+    socket.on('fetchMessages',() =>{
         retrieveMessages(socket)
     })
 
