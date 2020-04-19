@@ -16,6 +16,12 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import { Link } from "@material-ui/core/";
+import eggie1 from "../asset/eggie1.png";
+import Button from '@material-ui/core/Button';
+
 
 const drawerWidth = 240;
 
@@ -32,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+  },
+  appBar: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    height: 55,
+    backgroundColor: '#105368',
   },
   // necessary for content to be below app bar
   toolbar: {
@@ -60,6 +72,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
   const handleClick = () => {
     setClick(!click);
   };
+  
   const sideList = (
     <div className={classes.root}>
       <CssBaseline />
@@ -124,6 +137,19 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
   );
 
   return (
+    <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar style = {{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <img src={eggie1}></img>
+            <div style = {{marginRight: '20px'}}> nut </div>
+            <span> | </span>
+            <Link style = {{color: "white", textDecoration: "underline",marginLeft: '20px'}}
+              onClick={() => {history.push('/');}}
+            > 
+              <Button style = {{color: "white"}}>
+              Log out
+              </Button>
+            </Link>
+        </Toolbar>
     <Drawer
       className={classes.drawer}
       variant="permanent"
@@ -134,6 +160,8 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
     >
       {sideList}
     </Drawer>
+    </AppBar>
+
   );
 };
 

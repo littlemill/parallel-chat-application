@@ -16,24 +16,13 @@ class Group extends React.Component {
             <div className="group">
                 <Drawer></Drawer>
                 <div className='group-panel'>
-                    <div className='group-username'>
-                        <img src={this.state.profile}></img>
-                        <p>{this.state.username}</p>
-                        <span> | </span>
-                        <Link className='logout-button' to="/">
-                            <Button className='logout-button'
-                                color='inherit'
-                            >
-                                Log out
-                            </Button>
-                        </Link>
-                    </div>
                     <div className='group-header'>
                         CREATE NEW GROUP
                     </div>
                     <div className='group-content'>
-                        <o1>Group Name:</o1>
+                        <o1 style = {{marginRight: '20px'}}>Group Name:</o1>
                         <TextField
+                            style = {{marginRight: '20px'}}
                             placeholder='Group Name'>
                         </TextField>
                         <Button variant="outlined" disabled style={{ borderRadius: 40, width: '300 px' }}>
