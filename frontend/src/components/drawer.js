@@ -1,4 +1,6 @@
-import React from 'react';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -13,7 +15,6 @@ import GroupIcon from '@material-ui/icons/Group';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const drawerWidth = 240;
@@ -21,6 +22,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexDirection: 'column',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermanentDrawerRight() {
+const NavBar = ({ history }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [click, setClick] = React.useState(true);
@@ -58,24 +60,15 @@ export default function PermanentDrawerRight() {
   const handleClick = () => {
     setClick(!click);
   };
-
-  return (
-    <div className={classes.root}>
+  const sideList = (
+      <div className={classes.root}>
       <CssBaseline />
-      
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
         <div className={classes.toolbar} style = {{ fontSize: "24px"}}>
           <b>EGGIE</b>
-      </div>
-        <Divider />
+        </div>
+      <Divider />
 
+      <div className={classes.list} role="presentation">
       <List>
         <ListItem button onClick={handleClick}>
             <ListItemIcon > <GroupAddIcon /> </ListItemIcon>
@@ -113,15 +106,35 @@ export default function PermanentDrawerRight() {
         </List>
         </Collapse>
       </List>
+      <Divider />
 
-<Divider />
       <List>
-          <ListItem button>
+          <ListItem 
+          button
+          onClick={() => {
+            history.push('/group');
+          }}
+          >
             <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
             <ListItemText primary= "Create new group" />
           </ListItem>
       </List>
-      </Drawer>
+    </div>
     </div>
   );
-}
+
+  return (
+    <Drawer
+      className={classes.drawer}
+      variant="permanent"
+      classes={{
+          paper: classes.drawerPaper,
+      }}
+      anchor="left"
+    >
+        {sideList}
+    </Drawer>
+  );
+};
+
+export default withRouter(NavBar);
