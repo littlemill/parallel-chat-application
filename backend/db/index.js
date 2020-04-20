@@ -53,7 +53,7 @@ const db = mongoose.connection
 // new GroupMember({group: 'konsuaysuay',member: 'janejira_jira'}).save()
 
 // new GroupMember({group: 'parallel-dist',member: 'littlemill'}).save()
-new GroupMember({ group: 'parallel-dist', member: 'a' }).save()
+//new GroupMember({ group: 'parallel-dist', member: 'a' }).save()
 
 // new GroupMember({group: 'ComEngCp44',member: 'nnnnnnutt'}).save()
 // new GroupMember({group: 'ComEngCp44',member: 'xntien'}).save()
@@ -87,8 +87,6 @@ function userLogin(username, socket) {
 async function GroupInfo(username, socket) {
     var allGroup = await getGroupList();
     var allJoinedGroup = await getJoinedGroupList(username);
-    //console.log(allGroup)
-    //console.log(allJoinedGroup)
     socket.emit("groupinfo", { group: allGroup, joinedGroup: allJoinedGroup });
 }
 
@@ -105,7 +103,6 @@ async function getGroupList() {
 async function getJoinedGroupList(username) {
     var joinedgroupList = []
     var group = await GroupMember.find({ member: username })
-    //console.log(group)
     var groupdata
     for (groupdata in group) {
         joinedgroupList.push(group[groupdata].group)
@@ -123,11 +120,6 @@ async function getAllMessages(groupList) {
         chatByGroup[groupList[groupName]] = message.map((msgitem, idx) => {
             return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
         })
-        // Chat.find({ group: groupName }).sort('timestamp').exec(function (err, message) {
-        //     chatByGroup[groupName] = message.map((msgitem, idx) => {
-        //         return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
-        //     })
-        // })s
     }
     console.log('c',chatByGroup)
     return chatByGroup
