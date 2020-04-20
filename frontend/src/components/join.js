@@ -41,7 +41,7 @@ class Join extends React.Component {
                     <div className='login-button'>
                         <Button component={Link}
                             to={{
-                                pathname: "/chat",
+                                pathname: "/group",
                                 state: { user: this.state.name }
                             }}
                             color="inherite"
