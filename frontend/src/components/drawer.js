@@ -21,7 +21,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from "@material-ui/core/";
 import eggie1 from "../asset/eggie1.png";
 import Button from '@material-ui/core/Button';
+import openSocket from 'socket.io-client';
+import * as io from 'socket.io-client' 
 
+const socket = openSocket('http://localhost:3000');
 
 const drawerWidth = 240;
 
@@ -73,7 +76,21 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
   const handleClick = () => {
     setClick(!click);
   };
-  
+
+  const handleLogout = (user) => {
+    console.log(user)
+    socket.emit('log out', user)
+    console.log('emit')
+    socket.on('user disconnected',user)
+    console.log('disconnected')
+  };
+
+
+  // socket.on('log out', (data) => { //data = {name} --> user
+  //       io.emit('user disconnected')
+  //       console.log('user: ', data.name, ' disconnected')
+  //   })
+
   const sideList = (
     <div className={classes.root}>
       <CssBaseline />
@@ -144,7 +161,10 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
             <div style = {{marginRight: '20px'}}> {user} </div>
             <span> | </span>
             <Link style = {{color: "white", textDecoration: "underline",marginLeft: '20px'}}
-              onClick={() => {history.push('/');}}
+              onClick={() => {
+                history.push('/');
+                handleLogout(user);
+              }}
             > 
               <Button style = {{color: "white"}}>
               Log out

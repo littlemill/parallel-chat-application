@@ -220,8 +220,9 @@ io.on('connection', (socket) => {
     })
 
     socket.on('log out', (data) => { //data = {name} --> user
-        io.emit('user disconnected')
-        console.log('user: ', data.name, ' disconnected')
+        console.log(data)
+        socket.emit('user disconnected')
+        console.log('user: ', data, ' disconnected')
     })
 });
 
