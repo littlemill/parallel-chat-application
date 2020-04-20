@@ -65,10 +65,10 @@ class Chat extends React.Component {
     }
 
     onGetMessages = (groupName) => {
-        //3. get all chat messages {status: working on showing messages}
+        // 3. get all chat messages {status: working on showing messages}
 
-        console.log('fetch message:'+groupName)
-        socket.emit('join', { group: groupName, member: 'yin_kiatsilp' })
+        console.log('fetch message:' + groupName)
+        socket.emit('join', { group: groupName, member: this.state.user })
         socket.on('all messages', (data) => {
             this.setState({ messages: data, group: groupName })
             console.log(this.state.messages)
@@ -78,7 +78,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div className='chat' >
-                <Drawer available_groups={this.state.available_groups} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages} user={this.props.location.state.user}></Drawer>
+                <Drawer available_groups={this.state.available_groups} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages} user={this.state.user}></Drawer>
                 <div className='chat-panel'>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name' style={{ fontSize: "18px" }}>

@@ -34,6 +34,14 @@ class Group extends React.Component {
     handleCreate = () => {
         socket.emit('create', { 'member': 'littlemill', 'group': 'konsuaysuay' })
     }
+
+    onGetMessages = (groupName) => {
+        socket.emit('join', { group: groupName, member: this.state.user })
+        this.props.history.push({
+            pathname: "/chat",
+            state: { user: this.state.user }
+        })
+    }
     render() {
         return (
             <div className="group">
