@@ -35,7 +35,7 @@ class Chat extends React.Component {
             })
             socket.emit('fetchMessages', 'hello')
             socket.on('all messages', (data) => {
-                console.log(data)
+                console.log('front',data)
                 // this.console.log('this is group name =')
                 this.setState({ messages: data })
                 // console.log(this.state.messages)
