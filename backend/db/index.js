@@ -117,7 +117,7 @@ async function getAllMessages(groupList) {
     for (groupName in groupList) {
         message = await Chat.find({ group: groupList[groupName] }).sort('timestamp')
         chatByGroup[groupList[groupName]] = message.map((msgitem, idx) => {
-            return { user: msgitem.user, time: util.timeformatter(msgitem.time), message: msgitem.message }
+            return { user: msgitem.user,group: msgitem.group, time: util.timeformatter(msgitem.time), message: msgitem.message }
         })
     }
     return chatByGroup
