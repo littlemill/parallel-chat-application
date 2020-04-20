@@ -24,23 +24,18 @@ class Chat extends React.Component {
 
     componentDidMount() {
         try {
-            //1. get user's groups {status: testing available_group and my_groups}
+            //1. get user's groups {status: complete}
 
             console.log('componentDidMount')
             socket.emit('getGroupUpdates', this.props.location.state.user)
             socket.on('groupinfo', (data) => {
-                console.log(data)
                 this.setState({ available_groups: data.group, my_groups: data.joinedGroup, user: this.props.location.state.user })
-                // console.log(this.state)
             })
             socket.emit('fetchMessages', 'hello')
             socket.on('all messages', (data) => {
-                console.log('front',data)
-                // this.console.log('this is group name =')
                 this.setState({ messages: data })
-                // console.log(this.state.messages)
+                console.log(this.state.messages)
             })
-            // console.log(this.state.messages)
         }
         catch (e) {
             console.log(e);
@@ -57,7 +52,6 @@ class Chat extends React.Component {
 
         console.log('send message')
         if (!!this.state.currentMessage) {
-            // console.log('sending')
             socket.emit('send', { user: this.state.user, group: this.state.group, time: new Date(), message: this.state.currentMessage }) // chat = {user,group,time,message}
             this.onGetMessages(this.state.group)
             this.setState({ currentMessage: '' })
@@ -71,7 +65,7 @@ class Chat extends React.Component {
     }
 
     onGetMessages = (groupName) => {
-        //3. get all chat messages {status: tesing messages}
+        //3. get all chat messages {status: working on showing messages}
 
         console.log('fetch message:'+groupName)
         socket.emit('join', { group: groupName, member: 'yin_kiatsilp' })
