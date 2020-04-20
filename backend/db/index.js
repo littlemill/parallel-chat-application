@@ -139,6 +139,24 @@ async function broadcastMessages(socket) {
     io.emit('all messages', chatByGroup)
 }
 
+async function joingroup(data,socket) {
+    var group = await GroupMember.find({ group:data.group, member:data.member })
+        if(!group.length){
+            const joinedGroup = new GroupMember(data)
+            joinedGroup.save(function(err){
+                if (err) {
+                    return err;
+                }
+                console.log(data.member+" joined "+data.group)  
+            });
+            GroupInfo(data.member,socket);
+            retrieveMessages(socket);
+        }
+        else{
+            console.log("already joined "+data.group)
+        }
+}
+
 io.on('connection', (socket) => {
     console.log('connected...');
 
@@ -159,30 +177,7 @@ io.on('connection', (socket) => {
 
     })
     socket.on('join', (data) => { // data = {group,member}
-        // GroupMember.find({data}), function(err,joingroup) {
-        //     if(joingroup.length){
-        //         console.log("already joined")
-        //     }
-        //     else{
-        //         var joinedGroup = new GroupMember(data)
-        //         joinedGroup.save(function(err){
-        //             if (err) {
-        //                 return err;
-        //             }
-        //             console.log(data.member+" joined "+data.group)  
-        //             GroupInfo(data.member,socket);
-        //         });
-        //         retrieveMessages(socket); 
-        //     }
-        // }
-        var joinedGroup = new GroupMember(data)
-        joinedGroup.save(function (err) {
-            if (err) {
-                return err;
-            }
-            console.log(data.member + " joined " + data.group)
-            GroupInfo(data.member, socket);
-        });
+        joingroup(data,socket)
     })
 
     socket.on('leave', (data) => { //data = {member,group}

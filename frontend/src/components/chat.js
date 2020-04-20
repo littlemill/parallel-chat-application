@@ -73,9 +73,8 @@ class Chat extends React.Component {
     onGetMessages = (groupName) => {
         //3. get all chat messages {status: tesing messages}
 
-        console.log('fetch message')
-        console.log(groupName)
-        socket.emit('fetchMessages', { member: 'yin_kiatsilp', group: groupName })
+        console.log('fetch message:'+groupName)
+        socket.emit('join', { group: groupName, member: 'yin_kiatsilp' })
         socket.on('all messages', (data) => {
             this.setState({ messages: data, group: groupName })
             console.log(this.state.messages)
