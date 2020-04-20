@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) => {
   const classes = useStyles();
-  console.log("user="+user)
   const [open, setOpen] = React.useState(true);
   const [click, setClick] = React.useState(true);
   const handleOpen = () => {
@@ -78,18 +77,10 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
   };
 
   const handleLogout = (user) => {
-    console.log(user)
     socket.emit('log out', user)
-    console.log('emit')
     socket.on('user disconnected',user)
     console.log('disconnected')
   };
-
-
-  // socket.on('log out', (data) => { //data = {name} --> user
-  //       io.emit('user disconnected')
-  //       console.log('user: ', data.name, ' disconnected')
-  //   })
 
   const sideList = (
     <div className={classes.root}>
