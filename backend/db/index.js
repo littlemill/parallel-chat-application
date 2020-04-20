@@ -187,7 +187,7 @@ io.on('connection', (socket) => {
       })
       
     socket.on('leave', (data) => { //data = {member,group}
-        GroupMember.remove(data,(err) => { //Remove All Documents that Match a Condition
+        GroupMember.remove(data,(err) => { // Remove All Documents that Match a Condition
             if (err) {
                 return err;
             }
