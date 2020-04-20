@@ -22,7 +22,7 @@ import { Link } from "@material-ui/core/";
 import eggie1 from "../asset/eggie1.png";
 import Button from '@material-ui/core/Button';
 import openSocket from 'socket.io-client';
-import * as io from 'socket.io-client' 
+import * as io from 'socket.io-client'
 
 const socket = openSocket('http://localhost:3000');
 
@@ -78,7 +78,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
 
   const handleLogout = (user) => {
     socket.emit('log out', user)
-    socket.on('user disconnected',user)
+    socket.on('user disconnected', user)
     console.log('disconnected')
   };
 
@@ -112,7 +112,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
         </List>
         <Divider />
 
-         <List>
+        <List>
           <ListItem button onClick={handleOpen}>
             <ListItemIcon> <GroupIcon /> </ListItemIcon>
             <ListItemText primary="My groups" />
@@ -134,7 +134,10 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
           <ListItem
             button
             onClick={() => {
-              history.push('/group');
+              history.push({
+                pathname: "/group",
+                state: { user: user }
+              });
             }}
           >
             <ListItemIcon><AddCircleRoundedIcon /> </ListItemIcon>
@@ -147,31 +150,31 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) =
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar style = {{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <img src={eggie1}></img>
-            <div style = {{marginRight: '20px'}}> {user} </div>
-            <span> | </span>
-            <Link style = {{color: "white", textDecoration: "underline",marginLeft: '20px'}}
-              onClick={() => {
-                history.push('/');
-                handleLogout(user);
-              }}
-            > 
-              <Button style = {{color: "white"}}>
-              Log out
+      <Toolbar style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <img src={eggie1}></img>
+        <div style={{ marginRight: '20px' }}> {user} </div>
+        <span> | </span>
+        <Link style={{ color: "white", textDecoration: "underline", marginLeft: '20px' }}
+          onClick={() => {
+            history.push('/');
+            handleLogout(user);
+          }}
+        >
+          <Button style={{ color: "white" }}>
+            Log out
               </Button>
-            </Link>
-        </Toolbar>
-    <Drawer
-      className={classes.drawer}
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      anchor="left"
-    >
-      {sideList}
-    </Drawer>
+        </Link>
+      </Toolbar>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        {sideList}
+      </Drawer>
     </AppBar>
 
   );

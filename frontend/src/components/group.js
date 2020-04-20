@@ -39,7 +39,7 @@ class Group extends React.Component {
         socket.emit('join', { group: groupName, member: this.state.user })
         this.props.history.push({
             pathname: "/chat",
-            state: { user: this.state.user }
+            state: { user: this.state.user, group: groupName }
         })
     }
     render() {

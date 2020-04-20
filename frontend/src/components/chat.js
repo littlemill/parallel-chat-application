@@ -29,7 +29,10 @@ class Chat extends React.Component {
             console.log('componentDidMount')
             socket.emit('getGroupUpdates', this.props.location.state.user)
             socket.on('groupinfo', (data) => {
-                this.setState({ available_groups: data.group, my_groups: data.joinedGroup, user: this.props.location.state.user })
+                this.setState({
+                    available_groups: data.group, my_groups: data.joinedGroup,
+                    user: this.props.location.state.user, group: this.props.location.state.group
+                })
             })
             socket.emit('fetchMessages', 'hello')
             socket.on('all messages', (data) => {
