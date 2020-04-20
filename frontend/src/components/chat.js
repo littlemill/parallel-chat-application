@@ -85,7 +85,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div className='chat' >
-                <Drawer available_groups={this.state.available_groups} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages}></Drawer>
+                <Drawer available_groups={this.state.available_groups} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages} user={this.props.location.state.user}></Drawer>
                 <div className='chat-panel'>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name' style={{ fontSize: "18px" }}>
