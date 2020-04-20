@@ -25,7 +25,7 @@ class Group extends React.Component {
                             style = {{marginRight: '20px'}}
                             placeholder='Group Name'>
                         </TextField>
-                        <Button variant="outlined" disabled style={{ borderRadius: 40, width: '300 px' }}>
+                        <Button onClick='handleCreate()' variant="outlined" disabled style={{ borderRadius: 40, width: '300 px' }}>
                             Create
                         </Button>
                     </div>

@@ -47,9 +47,9 @@ class Chat extends React.Component {
         }
     }
 
-    handleDelete() {
-        this.props.history.push("/emptyChat")
-        socket.emit('leave', { 'member': 'littlemill', 'group': 'konsuaysuay' })
+    handleDelete = () => {
+        this.props.history.push("/emptyChat");
+        socket.emit('leave', { 'member': 'littlemill', 'group': 'konsuaysuay' });
     }
 
     onSendMessage = (e) => {
@@ -91,7 +91,7 @@ class Chat extends React.Component {
                         <div className='chat-group-name' style={{ fontSize: "18px" }}>
                             {this.state.group.toUpperCase()}
                         </div>
-                        <DeleteIcon onClick='handleDelete()'></DeleteIcon>
+                        <DeleteIcon onClick={this.handleDelete}></DeleteIcon>
                     </div>
                     <div className='chat-content' style={{ display: 'flex', flexDirection: 'column' }}>
                         <TimeGrayBox />
