@@ -3,12 +3,36 @@
 }
 
 .other-message{
+    padding: .25em .5em;
+    background: white;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 11px;
+    clear: both;
+    float:left;
+
     margin-left: 10%;
     display: flex;
     justify-content: flex-start;
 }
 
+/*.other-message img{*/
+/*  float: left;*/
+/*  max-width: 60px;*/
+/*  width: 100%;*/
+/*  margin-right: 20px;*/
+/*  border-radius: 50%;*/
+/*}*/
+
 .my-message{
+    padding: .25em .5em;
+    background: white;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 11px;
+    clear: both;
+    float:right;
+
     margin-right: 10%;
     display: flex;
     justify-content: flex-end;

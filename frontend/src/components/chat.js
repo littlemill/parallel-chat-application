@@ -14,11 +14,10 @@ const socket = openSocket('http://localhost:3000');
 class Chat extends React.Component {
 
     state = {
-        available_groups: ['group1', 'group2'],
-        my_groups: ['group1', 'group2', 'group3'],
-        temp: ['konsuaysuay'],
+        available_groups: [],
+        my_groups: [],
         user: false,
-        group: "konsuaysuay",
+        group: "",
         currentMessage: '',
         messages: false
     }
@@ -48,9 +47,9 @@ class Chat extends React.Component {
         }
     }
 
-    handleDelete() {
-        this.props.history.push("/emptyChat")
-        socket.emit('leave', { 'member': 'littlemill', 'group': 'konsuaysuay' })
+    handleDelete = () => {
+        this.props.history.push("/emptyChat");
+        socket.emit('leave', { 'member': 'littlemill', 'group': 'konsuaysuay' });
     }
 
     onSendMessage = (e) => {
@@ -74,11 +73,10 @@ class Chat extends React.Component {
     onGetMessages = (groupName) => {
         //3. get all chat messages {status: tesing messages}
 
-        console.log('join group')
+        console.log('fetch message')
         console.log(groupName)
-        socket.emit('join', { member: 'yin_kiatsilp', group: groupName })
+        socket.emit('fetchMessages', { member: 'yin_kiatsilp', group: groupName })
         socket.on('all messages', (data) => {
-            this.console.log('this is group name =', groupName)
             this.setState({ messages: data, group: groupName })
             console.log(this.state.messages)
         })
@@ -87,13 +85,13 @@ class Chat extends React.Component {
     render() {
         return (
             <div className='chat' >
-                <Drawer available_groups={this.state.temp} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages}></Drawer>
+                <Drawer available_groups={this.state.available_groups} my_groups={this.state.my_groups} onGetMessages={this.onGetMessages} user={this.props.location.state.user}></Drawer>
                 <div className='chat-panel'>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '16px 16px' }}>
                         <div className='chat-group-name' style={{ fontSize: "18px" }}>
                             {this.state.group.toUpperCase()}
                         </div>
-                        <DeleteIcon onClick='handleDelete()'></DeleteIcon>
+                        <DeleteIcon onClick={this.handleDelete}></DeleteIcon>
                     </div>
                     <div className='chat-content' style={{ display: 'flex', flexDirection: 'column' }}>
                         <TimeGrayBox />
