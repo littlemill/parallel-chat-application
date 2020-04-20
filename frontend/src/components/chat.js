@@ -35,7 +35,7 @@ class Chat extends React.Component {
             })
             socket.emit('fetchMessages', 'hello')
             socket.on('all messages', (data) => {
-                console.log(data)
+                console.log('front',data)
                 // this.console.log('this is group name =')
                 this.setState({ messages: data })
                 // console.log(this.state.messages)
@@ -91,7 +91,7 @@ class Chat extends React.Component {
                         <div className='chat-group-name' style={{ fontSize: "18px" }}>
                             {this.state.group.toUpperCase()}
                         </div>
-                        <DeleteIcon onClick='handleDelete()'></DeleteIcon>
+                        <DeleteIcon onClick={this.handleDelete}></DeleteIcon>
                     </div>
                     <div className='chat-content' style={{ display: 'flex', flexDirection: 'column' }}>
                         <TimeGrayBox />

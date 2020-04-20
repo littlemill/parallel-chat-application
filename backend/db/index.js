@@ -87,8 +87,8 @@ function userLogin(username, socket) {
 async function GroupInfo(username, socket) {
     var allGroup = await getGroupList();
     var allJoinedGroup = await getJoinedGroupList(username);
-    console.log(allGroup)
-    console.log(allJoinedGroup)
+    //console.log(allGroup)
+    //console.log(allJoinedGroup)
     socket.emit("groupinfo", { group: allGroup, joinedGroup: allJoinedGroup });
 }
 
@@ -105,7 +105,7 @@ async function getGroupList() {
 async function getJoinedGroupList(username) {
     var joinedgroupList = []
     var group = await GroupMember.find({ member: username })
-    console.log(group)
+    //console.log(group)
     var groupdata
     for (groupdata in group) {
         joinedgroupList.push(group[groupdata].group)
@@ -114,29 +114,35 @@ async function getJoinedGroupList(username) {
 }
 
 
-function getAllMessages(groupList) {
+async function getAllMessages(groupList) {
     var chatByGroup = {}
     var groupName
     for (groupName in groupList) {
-        Chat.find({ group: groupName }).sort('timestamp').exec(function (err, message) {
-            chatByGroup[groupName] = message.map((msgitem, idx) => {
-                return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
-            })
+        message = await Chat.find({ group: groupName }).sort('timestamp')
+        chatByGroup[groupName] = message.map((msgitem, idx) => {
+            return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
         })
+        // Chat.find({ group: groupName }).sort('timestamp').exec(function (err, message) {
+        //     chatByGroup[groupName] = message.map((msgitem, idx) => {
+        //         return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
+        //     })
+        // })s
     }
+    console.log('c',chatByGroup)
     return chatByGroup
 }
 
-function retrieveMessages(socket) {
+async function retrieveMessages(socket) {
     console.log('retrieving')
-    var groupList = getGroupList()
-    var chatByGroup = getAllMessages(groupList)
+    var groupList = await getGroupList()
+    var chatByGroup = await getAllMessages(groupList)
+    console.log('getMessages()',chatByGroup)
     socket.emit('all messages', chatByGroup)
 }
 
-function broadcastMessages(socket) {
-    var groupList = getGroupList()
-    var chatByGroup = getAllMessages(groupList)
+async function broadcastMessages(socket) {
+    var groupList = await getGroupList()
+    var chatByGroup = await getAllMessages(groupList)
     io.emit('all messages', chatByGroup)
 }
 
@@ -184,7 +190,6 @@ io.on('connection', (socket) => {
             console.log(data.member + " joined " + data.group)
             GroupInfo(data.member, socket);
         });
-        //retrieveMessages(socket); 
     })
 
     socket.on('leave', (data) => { //data = {member,group}
@@ -211,11 +216,9 @@ io.on('connection', (socket) => {
 
     socket.on('getGroupUpdates', (data) => { //data = {name} --> user
         GroupInfo(data, socket)
-        // retrieveMessages(socket)
     })
 
     socket.on('fetchMessages', (data) => {
-        console.log('fetching....')
         retrieveMessages(socket)
     })
 
