@@ -5,4 +5,4 @@ var timeformatter = d => {
     return date + " " + time;
   };
 
-module.exports = timeformatter
+module.exports = {timeformatter}

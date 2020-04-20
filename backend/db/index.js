@@ -6,7 +6,7 @@ const Group = require('./models/group-model')
 const GroupMember = require('./models/groupmember-model')
 const Chat = require('./models/chat-model')
 
-const util = require('../util')
+const util = require('../util.js')
 
 const apiport = 3000
 
@@ -118,8 +118,9 @@ async function getAllMessages(groupList) {
     var chatByGroup = {}
     var groupName
     for (groupName in groupList) {
-        message = await Chat.find({ group: groupName }).sort('timestamp')
-        chatByGroup[groupName] = message.map((msgitem, idx) => {
+        console.log('groupName',groupList[groupName])
+        message = await Chat.find({ group: groupList[groupName] }).sort('timestamp')
+        chatByGroup[groupList[groupName]] = message.map((msgitem, idx) => {
             return { user: msgitem.name, time: util.timeformatter(msgitem.time), message: msgitem.message }
         })
         // Chat.find({ group: groupName }).sort('timestamp').exec(function (err, message) {
