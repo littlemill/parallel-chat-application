@@ -62,8 +62,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
+const NavBar = ({ history, available_groups, my_groups, onGetMessages, user }) => {
   const classes = useStyles();
+  console.log("user="+user)
   const [open, setOpen] = React.useState(true);
   const [click, setClick] = React.useState(true);
   const handleOpen = () => {
@@ -103,7 +104,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
         </List>
         <Divider />
 
-        <List>
+         <List>
           <ListItem button onClick={handleOpen}>
             <ListItemIcon> <GroupIcon /> </ListItemIcon>
             <ListItemText primary="My groups" />
@@ -140,7 +141,7 @@ const NavBar = ({ history, available_groups, my_groups, onGetMessages }) => {
     <AppBar position="fixed" className={classes.appBar}>
         <Toolbar style = {{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
             <img src={eggie1}></img>
-            <div style = {{marginRight: '20px'}}> nut </div>
+            <div style = {{marginRight: '20px'}}> {user} </div>
             <span> | </span>
             <Link style = {{color: "white", textDecoration: "underline",marginLeft: '20px'}}
               onClick={() => {history.push('/');}}
