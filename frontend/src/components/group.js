@@ -12,6 +12,7 @@ class Group extends React.Component {
         available_groups: [],
         my_groups: [],
         user: false,
+        group: ''
     }
 
     componentDidMount() {
@@ -32,7 +33,17 @@ class Group extends React.Component {
     }
 
     handleCreate = () => {
-        socket.emit('create', { 'member': 'littlemill', 'group': 'konsuaysuay' })
+        if (!!this.state.group) {
+            socket.emit('create', { member: this.state.user, group: this.state.group })
+            socket.on('groupcreation completed', () => {
+                console.log('create group complete')
+                socket.emit('getGroupUpdates', this.state.user)
+                socket.on('groupinfo', (data) => {
+                    this.setState({ available_groups: data.group, my_groups: data.joinedGroup })
+                })
+            })
+        }
+        console.log(this.state.group)
     }
 
     onGetMessages = (groupName) => {
@@ -54,9 +65,11 @@ class Group extends React.Component {
                         <o1 style={{ marginRight: '20px' }}>Group Name:</o1>
                         <TextField
                             style={{ marginRight: '20px' }}
-                            placeholder='Group Name'>
+                            placeholder='Group Name'
+                            value={this.state.group}
+                            onChange={e => { this.setState({ group: e.target.value }) }}>
                         </TextField>
-                        <Button onClick={this.handleCreate} variant="outlined" disabled style={{ borderRadius: 40, width: '300 px' }}>
+                        <Button onClick={this.handleCreate} variant="outlined" /*disabled*/ style={{ borderRadius: 40, width: '300 px' }}>
                             Create
                         </Button>
                     </div>
