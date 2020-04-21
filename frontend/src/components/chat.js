@@ -46,10 +46,10 @@ class Chat extends React.Component {
     }
 
     handleDelete = () => {
-        this.props.history.push("/emptyChat")
-        socket.emit('leave', { 'member': 'littlemill', 'group': 'konsuaysuay' })
+        this.props.history.push({ pathname: "/emptyChat", state: { user: this.state.user, group: this.state.group } })
+        socket.emit('leave', { member: this.state.user, group: this.state.group })
         socket.on('groupinfo', (data) => {
-            this.setState({messages: data})
+            this.setState({ messages: data })
             console.log(this.state)
         })
     }

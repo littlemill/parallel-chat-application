@@ -25,7 +25,6 @@ class Group extends React.Component {
                 this.setState({ available_groups: data.group, my_groups: data.joinedGroup, user: this.props.location.state.user })
                 console.log(this.state)
             })
-
         }
         catch (e) {
             console.log(e);
@@ -53,6 +52,7 @@ class Group extends React.Component {
             state: { user: this.state.user, group: groupName }
         })
     }
+
     render() {
         return (
             <div className="group">

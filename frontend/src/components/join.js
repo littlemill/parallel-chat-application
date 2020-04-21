@@ -24,7 +24,10 @@ class Join extends React.Component {
     }
 
     onClickLogin() {
-        this.userLogin(this.state.name)
+        console.log(this.state.name)
+        if (!!this.state.name) {
+            this.userLogin(this.state.name)
+        }
     }
 
     render() {
