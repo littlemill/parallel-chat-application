@@ -69,7 +69,7 @@ class Group extends React.Component {
                             value={this.state.group}
                             onChange={e => { this.setState({ group: e.target.value }) }}>
                         </TextField>
-                        <Button onClick={this.handleCreate} variant="outlined" /*disabled*/ style={{ borderRadius: 40, width: '300 px' }}>
+                        <Button onClick={this.handleCreate} style={{ borderRadius: 40, color: "white" }}>
                             Create
                         </Button>
                     </div>
