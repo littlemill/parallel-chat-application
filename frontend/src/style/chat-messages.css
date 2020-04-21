@@ -23,6 +23,7 @@
     display: flex;
     justify-content: flex-start;
     width: auto;
+    /* word-wrap: break-word; */
 }
 
 .other-message{
@@ -35,6 +36,7 @@
     float:left;
     width: fit-content;
     margin-right: 10px;
+    /* max-width: 300px; */
 }
 
 /*.other-message img{*/
@@ -53,6 +55,7 @@
     display: flex;
     align-items: flex-end;
     float:right;
+    word-wrap: break-word;
 }
 
 .my-message{
@@ -62,4 +65,5 @@
     -moz-border-radius: 11px;
     border-radius: 11px;
     width: fit-content;
+    max-width: 300px;
 }
