@@ -4,7 +4,7 @@ import { Button, TextField } from '@material-ui/core';
 import './../style/chat.css'
 // import eggie1 from './../asset/eggie1.png'
 import Drawer from './drawer'
-// import ChatMessages from './chat-messages'
+import ChatMessages from './chat-messages'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TimeGrayBox, UnreadGrayBox } from './grayBox';
 
@@ -19,25 +19,22 @@ class Chat extends React.Component {
         user: false,
         group: "",
         currentMessage: '',
-        messages: false
+        messages: []
     }
 
     componentDidMount() {
         try {
-            //1. get user's groups {status: complete}
-
             console.log('componentDidMount')
+            socket.emit('fetchMessages', 'hello')
+            socket.on('all messages', (data) => {
+                this.setState({ messages: data })
+            })
             socket.emit('getGroupUpdates', this.props.location.state.user)
             socket.on('groupinfo', (data) => {
                 this.setState({
                     available_groups: data.group, my_groups: data.joinedGroup,
                     user: this.props.location.state.user, group: this.props.location.state.group
                 })
-            })
-            socket.emit('fetchMessages', 'hello')
-            socket.on('all messages', (data) => {
-                this.setState({ messages: data })
-                console.log(this.state.messages)
             })
         }
         catch (e) {
@@ -50,13 +47,10 @@ class Chat extends React.Component {
         socket.emit('leave', { member: this.state.user, group: this.state.group })
         socket.on('groupinfo', (data) => {
             this.setState({ messages: data })
-            console.log(this.state)
         })
     }
 
     onSendMessage = (e) => {
-        //2. pass message backend {status: complete}
-
         console.log('send message')
         if (!!this.state.currentMessage) {
             socket.emit('send', { user: this.state.user, group: this.state.group, time: new Date(), message: this.state.currentMessage }) // chat = {user,group,time,message}
@@ -72,8 +66,6 @@ class Chat extends React.Component {
     }
 
     onGetMessages = (groupName) => {
-        // 3. get all chat messages {status: complete}
-
         console.log('fetch message:' + groupName)
         socket.emit('join', { group: groupName, member: this.state.user })
         socket.on('all messages', (data) => {
@@ -95,9 +87,9 @@ class Chat extends React.Component {
                         <DeleteIcon onClick={this.handleDelete}></DeleteIcon>
                     </div>
                     <div className='chat-content' style={{ display: 'flex', flexDirection: 'column' }}>
-                        <TimeGrayBox />
-                        <UnreadGrayBox />
-                        {/* <ChatMessages messages={this.state.chatMessages}></ChatMessages> */}
+                        {/* <TimeGrayBox /> */}
+                        {/* <UnreadGrayBox /> */}
+                        <ChatMessages messages={this.state.messages[this.state.group]} user={this.props.location.state.user} group={this.state.group}></ChatMessages>
                     </div>
                     <div className='message-box'>
                         <TextField

@@ -8,7 +8,8 @@
     font-style: normal;
     height: 8vh;
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    padding-left: 20px;
 }
 
 .center {

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
-
 import './../style/join.css';
-import openSocket from 'socket.io-client';
+import logo from './../asset/logo.png'
 
+import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:3000');
 
 class Join extends React.Component {
@@ -33,7 +33,7 @@ class Join extends React.Component {
     render() {
         return (
             <div className='root'>
-                <div className='titleBar'><p>LOGO/NAME</p></div>
+                <div className='titleBar'><img src={logo}></img><p>EGGIE</p></div>
                 <div className='center'>
                     <div className=''>
                         <h1>Welcome,</h1>
