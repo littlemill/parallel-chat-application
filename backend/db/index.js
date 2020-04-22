@@ -127,7 +127,7 @@ async function retrieveMessages(socket) {
     console.log('retrieving')
     var groupList = await getGroupList()
     var chatByGroup = await getAllMessages(groupList)
-    console.log('getMessages()',chatByGroup)
+    //console.log('getMessages()',chatByGroup)
     socket.emit('all messages', chatByGroup)
 }
 
