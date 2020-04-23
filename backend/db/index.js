@@ -8,7 +8,7 @@ const Chat = require('./models/chat-model')
 
 const util = require('../util.js')
 
-const apiport = 3000
+const apiport = process.env.PORT || 4000
 
 const io = require('socket.io').listen(apiport)
 console.log('listening on API port:', apiport)
