@@ -18,7 +18,7 @@ class ChatMessages extends React.Component {
         return <div className='container'>
             {Array.isArray(this.props.messages) && this.props.messages.map((message) => (
                 <div className={message.user === this.props.user ? 'my-message-container order' : 'other-message-container order'}>
-                    <div style = {{fontSize: '12px', marginBottom: '3px'}}>{message.user === this.props.user ? null : message.user}
+                    <div style={{ fontSize: '12px', marginBottom: '3px' }}>{message.user === this.props.user ? null : message.user}
                     </div>
                     <div>{message.user === this.props.user ?
                         <div style={{ display: 'flex', flexDirection: 'row' }}>

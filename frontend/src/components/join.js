@@ -5,7 +5,7 @@ import './../style/join.css';
 import logo from './../asset/logo.png'
 
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3000');
+const socket = openSocket('http://edfb4850.ngrok.io/');
 
 class Join extends React.Component {
 

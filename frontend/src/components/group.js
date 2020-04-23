@@ -5,7 +5,7 @@ import eggie1 from "../asset/eggie1.png";
 import { Link } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3000');
+const socket = openSocket('http://edfb4850.ngrok.io/');
 
 class Group extends React.Component {
     state = {
